@@ -11,7 +11,6 @@ export default function Billing() {
   let sugg = document.getElementById('suggestions');
   useEffect(()=>{
     getProducts(data.name);
-    // sugg.classList.remove('hide');
   },[data.name]);
   const getProducts = async(finder)=>{
     try{
