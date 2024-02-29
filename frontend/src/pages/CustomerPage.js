@@ -11,7 +11,7 @@ export default function CustomerPage({currentUser}) {
     getUser();
   },[])
   const send = async()=>{
-    let res = await fetch('/sendsms', {
+    let res = await fetch('billing-app-iota.vercel.app/sendsms', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -25,11 +25,11 @@ export default function CustomerPage({currentUser}) {
   }
   const getUser = async()=>{
     try{
-      let res = await fetch(`/getcurrentuser`);
+      let res = await fetch(`billing-app-iota.vercel.app/getcurrentuser`);
       res = await res.json();
       setHold(false);
       setUser(res.response);
-      let res2 = await fetch('/getbill');
+      let res2 = await fetch('billing-app-iota.vercel.app/getbill');
       res2 = await res2.json();
       setBill(res2.response.bills.reverse());
       let p = parseInt(res2.response.bills[0].total)-parseInt(res2.response.bills[0].payment);
@@ -48,7 +48,7 @@ export default function CustomerPage({currentUser}) {
       money : money
     }
     try{
-      let res = await fetch('/payment', {
+      let res = await fetch('billing-app-iota.vercel.app/payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
