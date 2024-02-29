@@ -18,7 +18,7 @@ export default function AllCustomer() {
   }
   const getCustomer = async(finder)=>{
     try{
-      let res = await fetch(`/getcustomer/${finder}`);
+      let res = await fetch(`https://billing-app-iota.vercel.app/getcustomer/${finder}`);
       res = await res.json();
       setHold(false);
       setCustomer(res.response);
