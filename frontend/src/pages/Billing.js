@@ -14,7 +14,7 @@ export default function Billing() {
   },[data.name]);
   const getProducts = async(finder)=>{
     try{
-      let res = await fetch(`billing-app-iota.vercel.app/getproduct/${finder}`);
+      let res = await fetch(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
       res = await res.json();
       console.log(res);
       setProducts(res.response);
@@ -34,7 +34,7 @@ export default function Billing() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch('billing-app-iota.vercel.app/setbill', {
+      let res = await fetch('https://billing-app-iota.vercel.app/setbill', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
