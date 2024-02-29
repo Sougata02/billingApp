@@ -1,0 +1,26 @@
+const express = require('express');
+const { addProduct } = require('../controllers/addProduct');
+const { getProduct } = require('../controllers/getProduct');
+const { addCustomer } = require('../controllers/addCustomer');
+const { getCustomer } = require('../controllers/getCustomer');
+const {getCurrentUser} = require('../controllers/getCurrentUser');
+const { setUser } = require('../controllers/setUser');
+const { setBill } = require('../controllers/setBill');
+const { setTodaysBill } = require('../controllers/setTodaysBill');
+const { getBills } = require('../controllers/getBills');
+const { payment } = require('../controllers/payment');
+const { sendSms } = require('../controllers/sendSms');
+const router = express.Router();
+
+router.post('/addproduct',addProduct);
+router.get('/getproduct/:name',getProduct);
+router.post('/addcustomer',addCustomer);
+router.get('/getcustomer/:name',getCustomer);
+router.get('/getcurrentuser',getCurrentUser);
+router.post('/setbill',setBill);
+router.get('/setuser/:id',setUser);
+router.get('/settodaysbill/:id',setTodaysBill);
+router.get('/getbill',getBills);
+router.post('/payment',payment);
+router.post('/sendsms',sendSms);
+module.exports = router;
