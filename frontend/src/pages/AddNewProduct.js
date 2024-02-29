@@ -17,7 +17,7 @@ export default function AddNewProduct() {
   }
   const getProducts = async(finder)=>{
     try{
-      let res = await fetch(`/getproduct/${finder}`);
+      let res = await fetch(`billing-app-iota.vercel.app/getproduct/${finder}`);
       res = await res.json();
       console.log(res);
       setProducts(res.response);
@@ -29,7 +29,7 @@ export default function AddNewProduct() {
   const submitHandler = async(e)=>{
     e.preventDefault();
     try{
-      let res = await fetch('/addproduct', {
+      let res = await fetch('billing-app-iota.vercel.app/addproduct', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
