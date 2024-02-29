@@ -15,7 +15,7 @@ export default function AddNewCustomer({setCurrentUser}) {
   const submitHandler = async(e)=>{
     e.preventDefault();
     try{
-      let res = await fetch('billing-app-iota.vercel.app/addcustomer', {
+      let res = await fetch('https://billing-app-iota.vercel.app/addcustomer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ export default function AddNewCustomer({setCurrentUser}) {
       res = await res.json();
       if(res.success==true){
         setData({name:"",address:"",phone:""});
-        await fetch(`billing-app-iota.vercel.app/setuser/${res.response._id}`);
+        await fetch(`https://billing-app-iota.vercel.app/setuser/${res.response._id}`);
         alert("Customer added!!");
       }else{
 
