@@ -24,6 +24,17 @@ app.use(router);
 app.get('/',(req,res)=>{
     res.send("Hello");
 })
+app.post('/addcustomer',(req,res)=>{
+    const {name,address,phone} = await req.body;
+        console.log(name,address,phone);
+        let k = name.toLowerCase();
+        let newCustomer = await Customer.create({name:k,address,phone});
+        res.status(200).json({
+            success:true,
+            message:"Customer has been added!!",
+            response:newCustomer
+        })
+})
 // Start server
 app.listen(process.env.PORT_NO || 4000, () => {
     console.log("Server Started!!");
