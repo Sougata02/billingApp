@@ -11,7 +11,8 @@ app.use(session({
 }));
 app.use(cors(
     {
-        origin:'https://billing-app-front.vercel.app/',
+        // origin:'https://billing-app-front.vercel.app',
+        origin:["*"],
         methods:['POST','GET'],
         credentials:true
     }
