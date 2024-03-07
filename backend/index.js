@@ -11,7 +11,6 @@ const app = express();
 app.use(session({
     secret: 'nimai'
 }));
-<<<<<<< HEAD
 app.use(cors(
     {
         // origin:'https://billing-app-front.vercel.app',
@@ -20,7 +19,6 @@ app.use(cors(
         credentials:true
     }
     ))
-=======
 
 // Enable CORS middleware
 app.use(cors({
@@ -29,22 +27,18 @@ app.use(cors({
     credentials: true
 }));
 
->>>>>>> origin/main
 app.use(express.json());
 app.use(router);
 app.get('/',(req,res)=>{
     res.send("Hello");
 })
-<<<<<<< HEAD
 app.get('/',(req,res)=>{
     res.send("HEllo!!");
 })
-=======
 // Start server
 app.listen(process.env.PORT_NO || 4000, () => {
     console.log("Server Started!!");
 });
 
 // Connect to database
->>>>>>> origin/main
 dbConnect();
