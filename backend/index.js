@@ -21,7 +21,9 @@ app.use(cors({
 
 app.use(express.json());
 app.use(router);
-
+app.get('/',(req,res)=>{
+    res.send("Hello");
+})
 // Start server
 app.listen(process.env.PORT_NO || 4000, () => {
     console.log("Server Started!!");
