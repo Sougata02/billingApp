@@ -11,14 +11,14 @@ const app = express();
 app.use(session({
     secret: 'nimai'
 }));
-app.use(cors(
-    {
-        // origin:'https://billing-app-front.vercel.app',
-        origin:["*"],
-        methods:['POST','GET'],
-        credentials:true
-    }
-    ))
+// app.use(cors(
+//     {
+//         // origin:'https://billing-app-front.vercel.app',
+//         origin:["*"],
+//         methods:['POST','GET'],
+//         credentials:true
+//     }
+//     ))
 
 // Enable CORS middleware
 app.use(cors({
