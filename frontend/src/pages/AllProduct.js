@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Item from '../components/Item';
-
+import axios from 'axios';
 export default function AllProduct() {
   const [find,setFind] = useState('all');
   const [hold,setHold] = useState(true);
@@ -17,7 +17,7 @@ export default function AllProduct() {
   }
   const getProduct = async(finder)=>{
     try{
-      let res = await fetch(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
+      let res = await axios.get(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
       res = await res.json();
       setHold(false);
       setProduct(res.response);

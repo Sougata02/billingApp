@@ -1,7 +1,9 @@
 import React from 'react'
+import axios from 'axios';
 import User from '../components/User';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import axios from 'axios';
 export default function AllCustomer() {
   const [find,setFind] = useState("all");
   const [hold,setHold] = useState(true);
@@ -18,7 +20,7 @@ export default function AllCustomer() {
   }
   const getCustomer = async(finder)=>{
     try{
-      let res = await fetch(`https://billing-app-iota.vercel.app/getcustomer/${finder}`);
+      let res = await axios.get(`https://billing-app-iota.vercel.app/getcustomer/${finder}`);
       res = await res.json();
       setHold(false);
       setCustomer(res.response);

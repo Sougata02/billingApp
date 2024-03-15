@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import Bills from './Bills';
+import axios from 'axios';
 export default function CustomerPage({currentUser}) {
   const [hold,setHold] = useState(true);
   const [user,setUser] = useState({});
@@ -11,25 +12,23 @@ export default function CustomerPage({currentUser}) {
     getUser();
   },[])
   const send = async()=>{
-    let res = await fetch('https://billing-app-iota.vercel.app/sendsms', {
-      method: 'POST',
+    let res = await axios.post('https://billing-app-iota.vercel.app/sendsms',{
+      name:user.name,
+      due:due,
+      no:user.phone
+    }, {
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name:user.name,
-        due:due,
-        no:user.phone
-      })
+      }
     })
   }
   const getUser = async()=>{
     try{
-      let res = await fetch(`https://billing-app-iota.vercel.app/getcurrentuser`);
+      let res = await axios.get(`https://billing-app-iota.vercel.app/getcurrentuser`);
       res = await res.json();
       setHold(false);
       setUser(res.response);
-      let res2 = await fetch('https://billing-app-iota.vercel.app/getbill');
+      let res2 = await axios.get('https://billing-app-iota.vercel.app/getbill');
       res2 = await res2.json();
       setBill(res2.response.bills.reverse());
       let p = parseInt(res2.response.bills[0].total)-parseInt(res2.response.bills[0].payment);
@@ -48,12 +47,10 @@ export default function CustomerPage({currentUser}) {
       money : money
     }
     try{
-      let res = await fetch('https://billing-app-iota.vercel.app/payment', {
-        method: 'POST',
+      let res = await axios.post('https://billing-app-iota.vercel.app/payment',data, {
         headers: {
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        }
       })
       res = await res.json();
       alert("Payment Successfull!!");

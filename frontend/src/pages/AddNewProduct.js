@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import './addproduct.css'
 export default function AddNewProduct() {
   const [data,setData] = useState({productName:"",productQuantity:"",productPrice:""});
@@ -17,7 +18,7 @@ export default function AddNewProduct() {
   }
   const getProducts = async(finder)=>{
     try{
-      let res = await fetch(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
+      let res = await axios.get(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
       res = await res.json();
       console.log(res);
       setProducts(res.response);
@@ -29,12 +30,10 @@ export default function AddNewProduct() {
   const submitHandler = async(e)=>{
     e.preventDefault();
     try{
-      let res = await fetch('https://billing-app-iota.vercel.app/addproduct', {
-        method: 'POST',
+      let res = await axios.post('https://billing-app-iota.vercel.app/addproduct',data, {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
       })
       res = await res.json();
       console.log(res);
