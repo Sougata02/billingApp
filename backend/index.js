@@ -18,14 +18,14 @@ app.use(cors(
         methods:['POST','GET'],
         credentials:true
     }
-    ))
-
+)
+)
 // Enable CORS middleware
-app.use(cors({
-    origin: 'https://billing-app-front.vercel.app', // Change this to your front-end URL
-    methods: ['POST', 'GET'],
-    credentials: true
-}));
+// app.use(cors({
+//     origin: 'https://billing-app-front.vercel.app', // Change this to your front-end URL
+//     methods: ['POST', 'GET'],
+//     credentials: true
+// }));
 
 app.use(express.json());
 app.use(router);
