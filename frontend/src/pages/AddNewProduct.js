@@ -35,7 +35,7 @@ export default function AddNewProduct() {
         },
         body: JSON.stringify(data)
       };
-      let res = await fetch('/addproduct',requestOptions);
+      let res = await fetch('https://billing-app-iota.vercel.app/addproduct',requestOptions);
       res = await res.json();
       console.log(res);
       if(res.success==true){
