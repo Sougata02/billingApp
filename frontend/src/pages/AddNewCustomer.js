@@ -22,7 +22,7 @@ export default function AddNewCustomer({setCurrentUser}) {
         },
         body: JSON.stringify(data)
       };
-      const res = await fetch('/addcustomer',requestOptions);
+      const res = await fetch('https://billing-app-iota.vercel.app/addcustomer',requestOptions);
       res = await res.json();
       if(res.success==true){
         setData({name:"",address:"",phone:""});
