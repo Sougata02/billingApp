@@ -23,15 +23,15 @@ export default function CustomerPage({currentUser}) {
         no:user.phone
       })
     };
-    let res = await fetch('/sendsms',requestOptions)
+    let res = await fetch('https://billing-app-iota.vercel.app/sendsms',requestOptions)
   }
   const getUser = async()=>{
     try{
-      let res = await fetch(`/getcurrentuser`);
+      let res = await fetch(`https://billing-app-iota.vercel.app/getcurrentuser`);
       res = await res.json();
       setHold(false);
       setUser(res.response);
-      let res2 = await fetch('/getbill');
+      let res2 = await fetch('https://billing-app-iota.vercel.app/getbill');
       res2 = await res2.json();
       setBill(res2.response.bills.reverse());
       let p = parseInt(res2.response.bills[0].total)-parseInt(res2.response.bills[0].payment);
@@ -57,7 +57,7 @@ export default function CustomerPage({currentUser}) {
         },
         body: JSON.stringify(data)
       };
-      let res = await fetch('/payment',requestOptions);
+      let res = await fetch('https://billing-app-iota.vercel.app/payment',requestOptions);
       res = await res.json();
       alert("Payment Successfull!!");
       getUser();
