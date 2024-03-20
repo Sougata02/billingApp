@@ -13,7 +13,7 @@ export default function Billing() {
   },[data.name]);
   const getProducts = async(finder)=>{
     try{
-      let res = await fetch(`/getproduct/${finder}`);
+      let res = await fetch(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
       res = await res.json();
       console.log(res);
       setProducts(res.response);
@@ -40,7 +40,7 @@ export default function Billing() {
         },
         body: JSON.stringify(data)
       };
-      let res = await fetch('/setbill',requestOptions);
+      let res = await fetch('https://billing-app-iota.vercel.app/setbill',requestOptions);
       res = await res.json();
       if (res.success === false) {
         alert("Product Unavailable Or More Quantity Entered than Stock");
