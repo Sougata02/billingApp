@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Item from '../components/Item';
-import axios from 'axios';
+import './allproduct.css'
 export default function AllProduct() {
   const [find,setFind] = useState('all');
   const [hold,setHold] = useState(true);
@@ -17,7 +17,7 @@ export default function AllProduct() {
   }
   const getProduct = async(finder)=>{
     try{
-      let res = await axios.get(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
+      let res = await fetch(`/getproduct/${finder}`);
       res = await res.json();
       setHold(false);
       setProduct(res.response);
@@ -28,12 +28,13 @@ export default function AllProduct() {
   }
   return (
     <>
-    <button onClick={()=>{
+    <button className='allBtn' onClick={()=>{
       setFind("");
       getProduct('all');
     }}>Get All Products</button><br/>
-    <input value={find} onChange={inputHandler} name='find'/><button onClick={submitHandler}>Search</button>
-    <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap:'wrap'}}>
+    <input value={find} onChange={inputHandler} name='find' id='srin' placeholder='Search something!!'/><br/>
+    <button onClick={submitHandler} id='srbtn'>Search</button>
+    <div id='mainPd'>
       {
         hold?<marquee>Please Wait</marquee>:<>
         {

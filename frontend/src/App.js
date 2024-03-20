@@ -9,11 +9,12 @@ import Navbar from "./pages/Navbar";
 import Home from "./pages/Home";
 import CustomerPage from './pages/CustomerPage';
 import Billing from "./pages/Billing";
+import './app.css'
 function App() {
-  const [logged,setLogged] = useState(false);
+  const [logged,setLogged] = useState(true);
   const [currentUser,setCurrentUser] = useState("");
   return (
-    <div>
+    <div className="app">
     {
       logged?(<div>
         <BrowserRouter>

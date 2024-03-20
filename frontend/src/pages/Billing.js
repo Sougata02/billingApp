@@ -1,7 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import './billing.css';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 export default function Billing() {
   const [data, setData] = useState({
     name: "",
@@ -14,7 +13,7 @@ export default function Billing() {
   },[data.name]);
   const getProducts = async(finder)=>{
     try{
-      let res = await axios.get(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
+      let res = await fetch(`/getproduct/${finder}`);
       res = await res.json();
       console.log(res);
       setProducts(res.response);
@@ -34,11 +33,14 @@ export default function Billing() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      let res = await axios.post('https://billing-app-iota.vercel.app/setbill',data, {
+      const requestOptions = {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
-      });
+        },
+        body: JSON.stringify(data)
+      };
+      let res = await fetch('/setbill',requestOptions);
       res = await res.json();
       if (res.success === false) {
         alert("Product Unavailable Or More Quantity Entered than Stock");

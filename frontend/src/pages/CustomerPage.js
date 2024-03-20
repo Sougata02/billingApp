@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import Bills from './Bills';
-import axios from 'axios';
+import './cp.css'
 export default function CustomerPage({currentUser}) {
   const [hold,setHold] = useState(true);
   const [user,setUser] = useState({});
@@ -12,23 +12,26 @@ export default function CustomerPage({currentUser}) {
     getUser();
   },[])
   const send = async()=>{
-    let res = await axios.post('https://billing-app-iota.vercel.app/sendsms',{
-      name:user.name,
-      due:due,
-      no:user.phone
-    }, {
+    const requestOptions = {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
-    })
+      },
+      body: JSON.stringify({
+        name:user.name,
+        due:due,
+        no:user.phone
+      })
+    };
+    let res = await fetch('/sendsms',requestOptions)
   }
   const getUser = async()=>{
     try{
-      let res = await axios.get(`https://billing-app-iota.vercel.app/getcurrentuser`);
+      let res = await fetch(`/getcurrentuser`);
       res = await res.json();
       setHold(false);
       setUser(res.response);
-      let res2 = await axios.get('https://billing-app-iota.vercel.app/getbill');
+      let res2 = await fetch('/getbill');
       res2 = await res2.json();
       setBill(res2.response.bills.reverse());
       let p = parseInt(res2.response.bills[0].total)-parseInt(res2.response.bills[0].payment);
@@ -47,11 +50,14 @@ export default function CustomerPage({currentUser}) {
       money : money
     }
     try{
-      let res = await axios.post('https://billing-app-iota.vercel.app/payment',data, {
+      const requestOptions = {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
-      })
+        },
+        body: JSON.stringify(data)
+      };
+      let res = await fetch('/payment',requestOptions);
       res = await res.json();
       alert("Payment Successfull!!");
       getUser();
@@ -60,8 +66,8 @@ export default function CustomerPage({currentUser}) {
     }
   }
   return (
-    <div>
-        {hold?<marque>Please Wait</marque>:<><h1>{`Customer Name: ${user.name}`}</h1>
+    <div id='cusDiv'>
+        {hold?<marque>Please Wait</marque>:<><h1>{`${user.name}`}</h1>
         <p>{`Phone No: ${user.phone}`}</p>
         <p>{`Address: ${user.address}`}</p>
         </>}

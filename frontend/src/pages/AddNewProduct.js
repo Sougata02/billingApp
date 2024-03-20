@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
 import './addproduct.css'
 export default function AddNewProduct() {
   const [data,setData] = useState({productName:"",productQuantity:"",productPrice:""});
@@ -7,7 +6,6 @@ export default function AddNewProduct() {
   let sugg = document.getElementById('suggestions');
   useEffect(()=>{
     getProducts(data.productName);
-    // sugg.classList.remove('hide');
   },[data.productName])
   const inputHandler = (e)=>{
     const {name,value} = e.target;
@@ -18,7 +16,7 @@ export default function AddNewProduct() {
   }
   const getProducts = async(finder)=>{
     try{
-      let res = await axios.get(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
+      let res = await fetch(`/getproduct/${finder}`);
       res = await res.json();
       console.log(res);
       setProducts(res.response);
@@ -30,11 +28,14 @@ export default function AddNewProduct() {
   const submitHandler = async(e)=>{
     e.preventDefault();
     try{
-      let res = await axios.post('https://billing-app-iota.vercel.app/addproduct',data, {
+      const requestOptions = {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-      })
+        body: JSON.stringify(data)
+      };
+      let res = await fetch('/addproduct',requestOptions);
       res = await res.json();
       console.log(res);
       if(res.success==true){
@@ -52,10 +53,10 @@ export default function AddNewProduct() {
     data.productName = e.target.value;
   }
   return (
-      <div class="container">
+      <div class="container1">
         <h2>Add Product Details</h2>
         <form class="product-form" onSubmit={submitHandler}>
-            <div class="form-group">
+            <div>
                 <label for="productName">Product Name</label>
                 <input type="text" id="productName" name="productName" value={data.productName} onChange={inputHandler} required/>
             </div>
@@ -63,7 +64,7 @@ export default function AddNewProduct() {
             <h5>Available Products</h5>
               {
                 products.map((item)=>{
-                  return <><li style={{border:'1px solid black',width:'100%',padding:'.5rem'}} onClick={()=>{
+                  return <><li style={{border:'1px solid black',width:'100%',padding:'.5rem',background:'#98bded',listStyle:'none'}} onClick={()=>{
                     setData({
                       ...data,
                       productName:item.productName
