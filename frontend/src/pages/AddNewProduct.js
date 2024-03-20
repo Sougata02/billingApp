@@ -16,7 +16,7 @@ export default function AddNewProduct() {
   }
   const getProducts = async(finder)=>{
     try{
-      let res = await fetch(`/getproduct/${finder}`);
+      let res = await fetch(`https://billing-app-iota.vercel.app/getproduct/${finder}`);
       res = await res.json();
       console.log(res);
       setProducts(res.response);
